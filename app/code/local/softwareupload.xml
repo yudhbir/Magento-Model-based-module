@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+
+<layout>
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="customer">
+                <name>silver_softwareupload</name>
+                <path>softwareupload/software/index</path>
+                <label>Upload Software</label>
+            </action>
+		</reference>
+		<reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="customer">
+                <name>silver_softwareupload_company</name>
+                <path>softwareupload/software/company</path>
+                <label>Company Detail</label>
+            </action>
+		</reference>
+		<reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="customer">
+                <name>silver_softwareupload_softlist</name>
+                <path>softwareupload/software/softwarelist</path>
+                <label>Software List</label>
+            </action>
+		</reference>
+    </customer_account>
+
+    <silver_softwareupload_software_index>
+        <update handle="customer_account" />
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="softwareupload_content"
+                   template="customer/softwares/software.phtml"/>            
+        </reference>
+    </silver_softwareupload_software_index>
+	<silver_softwareupload_software_company>
+        <update handle="customer_account" />
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="softwareupload_company_content"
+                   template="customer/softwares/company_profile.phtml"/>            
+        </reference>
+    </silver_softwareupload_software_company>
+	
+	<silver_softwareupload_software_softwarelist>
+        <update handle="customer_account" />
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="softwareupload_company_content"
+                   template="customer/softwares/software_list.phtml"/>            
+        </reference>
+    </silver_softwareupload_software_softwarelist>
+	
+	<silver_softwareupload_company_info> 
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+        <reference name="content">
+            <block type="core/template" name="softwareupload_company_content"
+                   template="customer/softwares/company_info.phtml"/>            
+        </reference>
+    </silver_softwareupload_company_info>
+	
+</layout>

@@ -1,0 +1,137 @@
+<?php
+$model = Mage::getModel('softwareupload/softwaremodel')->load(1);
+// echo "<pre>";print_r($model);echo "<pre>";
+// echo $model->getUserName();
+?>
+<div class="dashboard">
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+	<div class="box-account box-info">
+		<div class="box-head">
+			<h2><?php echo $this->__('Upload Your Softwares') ?></h2>
+		</div>	
+
+	<form action="<?php echo $this->getUrl(); ?>softwareupload/software/saveproduct" method="post" class="add-seller-product" id="form-validate" enctype="multipart/form-data">    
+		
+			<div class="field">
+			  <label for="name" class="required"><em>*</em>Name</label>
+			  <div class="input-box">
+				<input type="text" class="input_inner input-text required-entry " maxlength="255" title="<?php echo $this->__('Image Name') ?>" name="name" id="name">
+			  </div>
+			</div>
+
+			<div class="field">
+			  <label class="required" for="sku"><em>*</em>SKU</label>
+				  <div class="input-box">
+						<input type="text" class="input_inner input-text required-entry" maxlength="255" title="<?php echo $this->__('SKU') ?>" name="sku" id="sku"> 
+				</div>
+			</div>
+
+			<div class="field">
+				<label class="required" for="description"><em>*</em>Description</label>
+				  <div class="input-box">
+						<textarea name="description" id="description" class="input_inner_area input-text required-entry " title="<?php echo $this->__('Description') ?>"></textarea>
+				</div>
+			</div>
+
+			<div class="field">
+				<label class="required" for="short_description"><em>*</em>Short Description</label>
+				  <div class="input-box">
+						<textarea name="short_description" id="short_description" class="input_inner_area input-text required-entry " title="<?php echo $this->__('Short Description') ?>"></textarea>
+				</div>
+			</div>
+
+			<div class="field">
+			  <label class="required" for="weight"><em>*</em>Weight</label>
+				  <div class="input-box">
+						<input type="text" class="input_inner input-text required-entry" maxlength="255" title="<?php echo $this->__('Weight') ?>" name="weight" id="weight"> 
+				</div>
+			</div>
+
+			<div class="field">
+			  <label class="required" for="price"><em>*</em>Price</label>
+				  <div class="input-box">
+						<input type="text" class="input_inner input-text required-entry" maxlength="255" title="<?php echo $this->__('Price') ?>" name="price" id="price"> 
+				</div>
+			</div>		   
+
+
+
+			<div class="field">				
+					<?php
+					$category = Mage::getModel('catalog/category');
+					$tree = $category->getTreeModel();
+					$tree->load();
+					$ids = $tree->getCollection()->getAllIds();
+					?>
+					<label class="required" for="categories"><em>*</em>Categories</label>
+					<div class="input-box">
+					<select name="categories" id="categories" class="input_inner input-text required-entry" style="width:368px;">
+						<?php
+						echo '<option value="">-- Please Select --</option>';
+						foreach ($ids as $id) {
+							$cat = Mage::getModel('catalog/category');
+							$cat->load($id);
+							if ($cat->getIsActive()) {
+								$dash = '';
+								if ($cat->getLevel() == 3)
+									$dash = "-";
+								if ($cat->getLevel() == 4)
+									$dash = "--";
+								if ($cat->getLevel() == 5)
+									$dash = "---";
+								echo '<option value="' . $cat->getId() . '">' . $dash . ucwords($cat->getName()) . '</option>';
+							}
+						}
+						?>                                        
+					</select>
+					</div>
+			</div>
+			
+			
+			<div class="field">
+			  <label class="required" for="software_video"><em>*</em>Software Video Url</label>
+				  <div class="input-box">
+						<input type="text" class="input_inner input-text required-entry" title="<?php echo $this->__('Software Video Url') ?>" name="software_video" id="software_video"> 
+				</div>
+			</div>
+
+			<div class="field">
+			  <label class="required" for="price"><em>*</em>Software Demo Url</label>
+				  <div class="input-box">
+						<input type="text" class="input_inner input-text required-entry" title="<?php echo $this->__('Software Demo Url') ?>" name="software_url" id="software_url"> 
+				</div>
+			</div>
+			
+
+			<div class="field">
+			  <label class="required" for="image"><em>*</em>Upload Image</label>
+				  <div class="input-box">
+						<input type="file" class="input-text required-entry"  maxlength="255" title="<?php echo $this->__('Image') ?>" value="" name="image" id="btnUpload" style="width:368px;">
+				</div>
+			</div>	
+
+			<div class="field">
+			  <label class="required" for="terms"><em>*</em>I have read and understood the terms and conditions</label>
+				  <div class="input-box">
+						<input name="terms" type="checkbox" id="terms" value="agree" class="fleft input-text required-entry" style="width:20px"/>
+				</div>
+			</div>
+
+		<div class="buttons-set">
+			<p class="back-link"><a href="<?php echo $this->getUrl();?>customer/account/"><small>« </small>Back</a></p>
+			<button type="submit" title="Save" class="button"><span><span>Add Product</span></span></button>
+		</div>
+
+		<input type="hidden" name="customer_id" id="customer_id" value="<?php echo Mage::getSingleton('customer/session')->getId(); ?>" />
+		<input type="hidden" name="customer_name" id="customer_name" value="<?php echo Mage::getSingleton('customer/session')->getCustomer()->getName(); ?>" />
+	</form>
+</div>
+</div>
+<script type="text/javascript">
+    //< ![CDATA[
+    var customForm = new VarienForm('form-validate');
+    //]]>
+</script>
+<style>
+.input-box { margin: 6px;}
+</style>

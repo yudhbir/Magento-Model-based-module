@@ -1,0 +1,28 @@
+<?php
+$company_id=Mage::registry('company_id');
+$model = Mage::getModel('softwareupload/companymodel')->load($company_id);
+ // echo "<pre>";print_r($model);echo "<pre>";
+
+$company_name=$model->getCompanyName();
+$company_info=$model->getCompanyInfo();  
+$user_id=$model->getUserId();  
+$Customer_Name = Mage::getModel('customer/customer')->load($user_id)->getName();
+
+?>
+<div class="dashboard">
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+	<div class="box-account box-info">
+		<div class="box-head">
+			<h2><?php echo $this->__('Company Information') ?></h2>
+		</div>	
+		<p>Customer Name: <?php if(!empty($Customer_Name)){echo $Customer_Name;}?></p>
+		<p>Company Name: <?php if(!empty($company_name)){echo $company_name;}?></p>
+		<p>Company Name: <?php if(!empty($company_info)){echo $company_info;}?></p>
+	<?php echo $this->getLayout()->createBlock('core/template')->setVendorId($user_id)->setTemplate('catalog/product/software_view.phtml')->tohtml();?>
+</div>
+</div>
+<script type="text/javascript">
+    //< ![CDATA[
+    var customForm = new VarienForm('Companyform-validate');
+    //]]>
+</script>

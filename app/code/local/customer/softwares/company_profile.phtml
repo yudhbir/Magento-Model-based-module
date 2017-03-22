@@ -1,0 +1,54 @@
+<?php
+$user_id=Mage::getSingleton('customer/session')->getId();
+$model = Mage::getModel('softwareupload/companymodel')->load($user_id, 'user_id');
+ // echo "<pre>";print_r($model);echo "<pre>";
+ $company_name="";
+ $company_info="";
+if(!empty($model->getUserId()))
+{
+	$company_name=$model->getCompanyName();
+	$company_info=$model->getCompanyInfo();  
+}
+
+?>
+<div class="dashboard">
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+	<div class="box-account box-info">
+		<div class="box-head">
+			<h2><?php echo $this->__('Company Information') ?></h2>
+		</div>	
+
+	<form action="<?php echo $this->getUrl(); ?>softwareupload/software/savecompany" method="post" class="add-seller-company" id="Companyform-validate" enctype="multipart/form-data">    
+		
+			<div class="field">
+			  <label for="name" class="required"><em>*</em>Company Name</label>
+			  <div class="input-box">
+				<input type="text" class="input_inner input-text required-entry " maxlength="255" title="<?php echo $this->__('Company Name') ?>" name="cname" id="cname" value="<?php if(!empty($company_name)){echo $company_name;}?>">
+			  </div>
+			</div>			
+
+			<div class="field">
+				<label class="required" for="description"><em>*</em>Company Information</label>
+				  <div class="input-box">
+						<textarea name="company_info" id="company_info" class="input_inner_area input-text required-entry " title="<?php echo $this->__('Company Description') ?>"><?php if(!empty($company_info)){echo $company_info;}?></textarea>
+				</div>
+			</div>
+		<div class="buttons-set">
+			<p class="back-link"><a href="<?php echo $this->getUrl();?>customer/account/"><small>« </small>Back</a></p>
+			<button type="submit" title="Save" class="button"><span><span>Save</span></span></button>
+		</div>
+
+		<input type="hidden" name="user_id" id="user_id" value="<?php echo Mage::getSingleton('customer/session')->getId(); ?>" />		
+		<input type="hidden" name="company_id" id="company_id" value="<?php if(!empty($model->getId())){echo $model->getId();} ?>" />		
+	</form>
+</div>
+</div>
+<script type="text/javascript">
+    //< ![CDATA[
+    var customForm = new VarienForm('Companyform-validate');
+    //]]>
+</script>
+<style>
+.input-box { margin: 6px;}
+
+</style>

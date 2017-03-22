@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Silver_Softwareupload>
+			<version>1.0.0</version>
+		</Silver_Softwareupload>
+	</modules>
+    <frontend>
+        <layout>
+            <updates>
+                <silver_softwareupload module="Silver_Softwareupload">
+                    <file>softwareupload.xml</file>
+                </silver_softwareupload>
+            </updates>
+        </layout>    
+        <routers>
+            <silver_softwareupload>
+                <use>standard</use>
+                <args>
+                    <module>Silver_Softwareupload</module>
+                    <frontName>softwareupload</frontName>
+                </args>
+            </silver_softwareupload>
+        </routers>        
+    </frontend>
+    
+    <global>
+        <helpers>
+            <softwareupload>
+                <class>Silver_Softwareupload_Helper</class>
+            </softwareupload>
+        </helpers>
+		<models>
+			<softwareupload>
+				<class>Silver_Softwareupload_Model</class>
+				<resourceModel>softwareupload_resource</resourceModel>
+			</softwareupload>
+
+			 <softwareupload_resource>
+				<class>Silver_Softwareupload_Model_Resource</class>
+				<entities>
+					<softwaremodel>
+							<table>tbl_software_upload</table>
+					</softwaremodel >
+					<companymodel>
+							<table>tbl_companyinfo</table>
+					</companymodel >
+				</entities>
+			</softwareupload_resource>
+		</models>
+    </global>
+    
+</config>
